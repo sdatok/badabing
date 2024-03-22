@@ -11,19 +11,26 @@
   font-stretch: 75% 125%;
 }
 
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 html {
   font-family: 'Mona Sans';
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
 }
 
 :root {
   font-family: 'Mona Sans', sans-serif;
   line-height: 1.5;
   font-weight: 400;
-
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -37,17 +44,33 @@ html {
   }
 }
 
-html, body, #root {
+html, body {
   height: 100%;
   width: 100%;
   margin: 0;
 }
 
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  min-width: 320px;
+  margin: 0;
+}
+
 #root {
+  width: 100%;
   max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  /*justify-content: center;*/
+  align-items: center;
+  min-height: 100vh;
 }
 
 .logo {
@@ -100,15 +123,6 @@ a:hover {
   }
 }
 
-body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
-}
-
-
 button {
   border-radius: 8px;
   border: 1px solid transparent;
@@ -116,7 +130,6 @@ button {
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #1a1a1a;
   cursor: pointer;
   transition: border-color 0.25s;
 }
@@ -135,7 +148,7 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
-/* Additional styles for your title */
+
 .title {
   font-family: 'Mona Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
   font-feature-settings: 'ss02' on, 'ss01' on;
@@ -145,17 +158,98 @@ button:focus-visible {
 }
 
 .nav {
+  padding-top: 2rem; /* Adjust the value based on the actual height of your navbar */
   font-family: 'Mona Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
   font-feature-settings: 'ss02' on, 'ss01' on;
   font-weight: 900;
   letter-spacing: -0.01em;
   text-align: center;
+  position: fixed; /* Fix the navbar to the top of the screen */
+  top: 0; /* Align the top edge of the navbar with the top of the viewport */
+  left: 0; /* Align the left edge of the navbar with the left of the viewport */
+  width: 100%; /* Ensure the navbar spans the full width of the viewport */
+  z-index: 1000; /* Ensure the navbar is above other content */
 }
 
-@media (min-width: 768px) {
-  .title {
-    font-size: 48px; /* Use Tailwind's text-6xl class if preferred */
-    line-height: 1.08333; /* Close to 52px for better scaling */
-    letter-spacing: -0.03em;
+@media (max-width: 768px) {
+  .landing-div {
+    height: 150px;
+    margin: 5px;
   }
+
+  #root {
+    padding: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .grid-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-gap: 10px;
+  }
+
+  .landing-div {
+    height: 120px;
+  }
+}
+
+.landing-div {
+  background-color: #ccc; /* Placeholder for background images */
+  flex: 1; /* This ensures divs take up equal space */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  margin: 10px; /* Adjust as needed */
+  aspect-ratio: 1 / 1; /* Example: width to height ratio of 1:1 */
+  position: relative; /* Needed for absolute positioning of text */
+}
+
+/* Text styles to be revealed on hover */
+.landing-div-text {
+  position: absolute; /* Positioning inside the div */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); /* Centering the text */
+  transition: opacity 0.3s ease;
+  opacity: 0; /* Start as transparent */
+  color: white; /* Adjust color as needed */
+  z-index: 2;
+}
+
+/* Hover effect for text reveal */
+.landing-div:hover .landing-div-text {
+  opacity: 1; /* Make text visible */
+}
+
+@keyframes fontCycle {
+  0%, 100% {
+    font-weight: normal;
+    font-style: normal;
+  }
+  25% {
+    font-weight: bold;
+  }
+  50% {
+    font-weight: normal;
+    font-style: italic;
+  }
+  75% {
+    font-weight: bold;
+    font-style: italic;
+  }
+}
+
+.quote-container {
+  text-align: center;
+  width: 100%;
+}
+
+.quote {
+  display: inline-block;
+  font-family: 'Mona Sans', sans-serif;
+  font-size: 1.5rem;
+  animation: fontCycle 1s infinite;
 }
