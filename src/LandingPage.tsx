@@ -14,12 +14,12 @@ const LandingPage = () => {
 
     return (
         <div className="mt-20 text-center">
-            <h1 className="title text-5xl md:text-6xl lg:text-7xl xl:text-8xl">SONAM DATOK</h1>
+            <h1 className="title text-3xl md:text-4xl lg:text-5xl xl:text-6xl">SONAM DATOK</h1>
             <div className="quote-container mt-10 mb-5">
                 <p className="quote">"I am still learning"</p>
-                <p className="">- Michelangelo</p>
+                <p>- Michelangelo</p>
             </div>
-            <div className="grid grid-cols-2 gap-4 mt-10 p-5">
+            <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-10 p-5">
                 {[{ name: 'PROJECTS', image: projectsImage, path: '/projects' },
                     { name: 'ABOUT', image: aboutImage, path: '/about' },
                     { name: 'CV', image: cvImage, path: '/cv' },
@@ -27,18 +27,14 @@ const LandingPage = () => {
                 ].map((item, index) => (
                     <div
                         key={index}
-                        className="landing-div relative cursor-pointer"
+                        className="landing-div group relative cursor-pointer"
                         onClick={() => handleNavigate(item.path)}
                     >
                         <img src={item.image} alt={item.name} className="w-full h-full object-cover"/>
-                        <div className="absolute inset-0 bg-black bg-opacity-50 md:bg-opacity-0
-                                        flex items-center justify-center
-                                        hover:bg-opacity-50 transition-opacity duration-300 ease-in-out">
-                            <span className="text-white font-bold opacity-100 md:opacity-0
-                                             hover:opacity-100 text-sm md:text-2xl lg:text-3xl xl:text-4xl">
-                                {item.name}
-                            </span>
-                        </div>
+                        <div className="overlay absolute inset-0 bg-gray-800 bg-opacity-0 group-hover:bg-opacity-50 transition-opacity duration-300 ease-in-out"></div>
+                        <span className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 text-white font-bold text-lg md:text-xl lg:text-2xl xl:text-3xl transition-opacity duration-300 ease-in-out">
+                    {item.name}
+                </span>
                     </div>
                 ))}
             </div>
